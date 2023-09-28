@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Prompt for user input
+read -p "Enter commit message: " message
+
+# Validate that the commit message is not empty
+if [[ -z "$message" ]]; then
+    echo "Error: commit message cannot be empty"
+    exit 1
+fi
+
+# Set git config for the current user
+git config user.name "K NKUATSANA"
+git config user.email "nkuatsanakeneuoe@gmail.com"
+
+# Add changes to the staging area
+if ! git add .; then
+    echo "Error: unable to add changes to the staging area"
+    exit 1
+fi
+
+# Commit the changes with the co-author line appended to the commit message
+if ! git commit -m "`echo -e "$message\n\nCo-authored-by: Ntsako Ngoveni <naction723@gmail.com>"`"; then
+    echo "Error: unable to commit changes"
+    exit 1
+fi
+
+# Push the changes to the remote repository
+if ! git push; then
+    echo "Error: unable to push changes to the remote repository"
+    exit 1
+fi
+
+echo "Changes committed and pushed successfully"
