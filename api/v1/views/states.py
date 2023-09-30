@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Contains the states view for the API.'''
+'''Includes the states for the API.'''
 from flask import abort, jsonify, make_response, request
 from api.v1.views import app_views
 from models import storage
@@ -8,14 +8,14 @@ from models.state import State
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def state():
-    """Retrieves the list of all State objects"""
+    """Recovers the list of all State objects"""
     objs = storage.all(State)
     return jsonify([obj.to_dict() for obj in objs.values()])
 
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def single_state(state_id):
-    """Retrieves a State object"""
+    """Recovers a State object"""
     obj = storage.get(State, state_id)
     if not obj:
         abort(404)
@@ -25,7 +25,7 @@ def single_state(state_id):
 @app_views.route('/states/<state_id>',
                  methods=['DELETE'], strict_slashes=False)
 def del_state(state_id):
-    """Deletes a State object"""
+    """Deletes State object"""
     obj = storage.get(State, state_id)
     if not obj:
         abort(404)
@@ -36,7 +36,7 @@ def del_state(state_id):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
-    """Returns the new State with the status code 201"""
+    """Returns the new State with 201 status code"""
     new_obj = request.get_json()
     if not new_obj:
         abort(400, "Not a JSON")
@@ -50,7 +50,7 @@ def post_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def put_state(state_id):
-    """ Updates a State object """
+    """ Amend a State object """
     obj = storage.get(State, state_id)
     if not obj:
         abort(404)

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Contains the blueprint for the API
+Contains the schema for the API
 """
 from flask import Blueprint
 
