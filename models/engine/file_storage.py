@@ -17,7 +17,7 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
 
 
 class FileStorage:
-    """Converts instances to a JSON file & reverses to instances from JSON file"""
+    """Converts instances to a JSON file """
 
     # string - path to the JSON file
     __file_path = "file.json"
