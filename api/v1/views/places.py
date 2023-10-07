@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Includes the places for the API.'''
+'''Contains the places view for the API.'''
 from flask import abort, jsonify, make_response, request
 import requests
 from api.v1.views import app_views
@@ -18,7 +18,7 @@ from os import getenv
 @app_views.route('cities/<city_id>/places',
                  methods=['GET'], strict_slashes=False)
 def place(city_id):
-    """Recovers the list of all Place objects of a City"""
+    """Retrieves the list of all Place objects of a City"""
     obj_city = storage.get(City, city_id)
     if not obj_city:
         abort(404)
@@ -28,7 +28,7 @@ def place(city_id):
 
 @app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
 def single_place(place_id):
-    """Recovers a Place object"""
+    """Retrieves a Place object"""
     obj = storage.get(Place, place_id)
     if not obj:
         abort(404)
@@ -38,7 +38,7 @@ def single_place(place_id):
 @app_views.route('/places/<place_id>',
                  methods=['DELETE'], strict_slashes=False)
 def del_place(place_id):
-    """Returns an empty dictionary with 200 status code"""
+    """Returns an empty dictionary with the status code 200"""
     obj = storage.get(Place, place_id)
     if not obj:
         abort(404)
@@ -50,7 +50,7 @@ def del_place(place_id):
 @app_views.route('cities/<city_id>/places',
                  methods=['POST'], strict_slashes=False)
 def post_place(city_id):
-    """Returns the new Place with 201 status code"""
+    """Returns the new Place with the status code 201"""
     obj_city = storage.get(City, city_id)
     if not obj_city:
         abort(404)
@@ -76,7 +76,7 @@ def post_place(city_id):
 
 @app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
 def put_place(place_id):
-    """Returns the Place object with 200 status code"""
+    """Returns the Place object with the status code 200"""
     obj = storage.get(Place, place_id)
     if not obj:
         abort(404)
@@ -96,7 +96,8 @@ def put_place(place_id):
 @app_views.route('/places_search', methods=['POST'], strict_slashes=False)
 def places_search():
     """
-    Recovers all Place objects based on the JSON provided in the request body
+    retrieves all Place objects depending
+    of the JSON in the body of the request
     """
     req = request.get_json()
     if req is None:

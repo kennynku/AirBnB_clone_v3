@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Includes the FileStorage class
+Contains the FileStorage class
 """
 
 import json
@@ -17,7 +17,7 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
 
 
 class FileStorage:
-    """Converts instances to a JSON file """
+    """serializes instances to a JSON file & deserializes back to instances"""
 
     # string - path to the JSON file
     __file_path = "file.json"
@@ -25,7 +25,7 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """yeild the dictionary __objects"""
+        """returns the dictionary __objects"""
         if cls is not None:
             new_dict = {}
             for key, value in self.__objects.items():
@@ -35,7 +35,7 @@ class FileStorage:
         return self.__objects
 
     def get(self, cls, id):
-        """returns an object of a class with id"""
+        """retrieves an object of a class with id"""
         if cls is not None:
             res = list(
                 filter(
@@ -48,7 +48,7 @@ class FileStorage:
         return None
 
     def count(self, cls=None):
-        """recovers the number of objects of a class or all (if cls==None)"""
+        """retrieves the number of objects of a class or all (if cls==None)"""
         return len(self.all(cls))
 
     def new(self, obj):
@@ -58,7 +58,7 @@ class FileStorage:
             self.__objects[key] = obj
 
     def save(self):
-        """converts __objects to the JSON file (path: __file_path)"""
+        """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}
         for key in self.__objects:
             json_objects[key] = self.__objects[key].to_dict()
@@ -66,7 +66,7 @@ class FileStorage:
             json.dump(json_objects, f)
 
     def reload(self):
-        """decodes the JSON file to __objects"""
+        """deserializes the JSON file to __objects"""
         try:
             with open(self.__file_path, 'r') as f:
                 jo = json.load(f)
